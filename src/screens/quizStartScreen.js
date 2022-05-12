@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {View, Text, Center, Divider, Image} from 'native-base';
 import {
   SafeAreaView,
@@ -13,10 +13,24 @@ import {
 import {colors, fontSizes, fonts} from '../config/theme';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import TopHeading from '../components/topHeading';
+import { useScore } from '../config/scoreContext';
 
-const QuizStartScreen = () => {
+const QuizStartScreen = ({navigation}) => {
+
+    const [name,setname] = useState('')
+
+    const {userData,setuserData} = useScore()
 
     const {width, height} = Dimensions.get('window');
+
+    const startQuiz = () => {
+        if(name.length === 0){
+            return alert('Please enter your name')
+        }
+        setuserData({...userData,userName:name})
+        navigation.navigate('MainQuizScreen')
+
+    }
 
     return(
         <SafeAreaView style={{flex:1,backgroundColor:colors.background}}>
@@ -28,10 +42,11 @@ const QuizStartScreen = () => {
          </View>
          <View alignItems="center" mt={20}>
              <TextInput
+              onChangeText={(value) => setname(value)}
               placeholder='Enter your name'
               style={{ backgroundColor: 'white',width:"90%",fontFamily:fonts.regularFont,fontSize:fontSizes.xxlarge, borderRadius: 8, padding: 18, marginVertical: 8,borderWidth:2,borderColor:"#dadada" }}
              />
-             <TouchableOpacity style={{ backgroundColor: colors.iconcolor,width:"90%",borderRadius: 8, padding: 18, marginTop: 80,}}>
+             <TouchableOpacity onPress={startQuiz} style={{ backgroundColor: colors.iconcolor,width:"90%",borderRadius: 8, padding: 18, marginTop: 80,}}>
                  <Text color="#fff" textAlign="center" fontSize={fontSizes.xxxlarge} fontFamily={fonts.mediumFont}>Start Timer</Text>
              </TouchableOpacity>
          </View>
