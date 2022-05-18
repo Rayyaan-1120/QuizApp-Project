@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import {View, Text, Center, Divider, Image} from 'native-base';
 import {
   SafeAreaView,
@@ -11,23 +11,43 @@ import {
 import {colors, fontSizes, fonts} from '../config/theme';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import TopHeading from '../components/topHeading';
+import { useScore } from '../config/scoreContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LeaderBoard = ({navigation}) => {
   const {width, height} = Dimensions.get('window');
 
-  const data = [
-    {
-      score: 9000,
-    },
-    {
-      score: 8000,
-    },
-    {
-      score: 7000,
-    },
-  ];
+  const {leaderboard,setleaderboard} = useScore()
+
+  // const data = [
+  //   {
+  //     score: 9000,
+  //   },
+  //   {
+  //     score: 8000,
+  //   },
+  //   {
+  //     score: 7000,
+  //   },
+  // ];
+
+
+  // useEffect(() => {
+  //   AsyncStorage.getItem('leaderboard').then(res => {
+  //     if(res){
+  //       setleaderboard(JSON.parse(res))
+  //     }
+  //   }).catch(err => alert(err));
+  // },[])
+
+  // console.log(leaderboard,'leaderboard');
+
+  // console.log(,'ssss')
+
+  const data = leaderboard.sort((a,b) => b.score - a.score).slice(0,3)
 
   return (
+
     <SafeAreaView style={{flex: 1, backgroundColor: colors.background}}>
       <View>
         <TopHeading text={'LeaderBoard'} />
@@ -54,6 +74,14 @@ const LeaderBoard = ({navigation}) => {
         <View w={'100%'} mt={3}>
           <FlatList
             data={data}
+            ListEmptyComponent={
+              <View alignItems="center" justifyContent="center">
+                <Text
+                fontFamily={fonts.mediumFont}
+                fontSize={fontSizes.xxxxxlarge}
+                >No Scores Yet</Text>
+              </View>
+            }
             keyExtractor={(item, index) => index.toString()}
             renderItem={({item, index}) => {
               return (
@@ -64,7 +92,7 @@ const LeaderBoard = ({navigation}) => {
                   flexDir="row"
                   alignItems="center"
                   justifyContent={'space-between'}>
-                  <View flexDir={'row'} alignItems="center">
+                  <View  flexDir={'row'} alignItems="center">
                     <MaterialCommunityIcons
                       name="star"
                       size={25}
@@ -73,8 +101,10 @@ const LeaderBoard = ({navigation}) => {
                     <Text
                       fontFamily={fonts.mediumFont}
                       ml={2}
+                      w={'70%'}
+                      isTruncated
                       fontSize={fontSizes.xxxxxlarge}>
-                      {index + 1} )
+                      {index + 1} ) {item.userName}
                     </Text>
                   </View>
                   <Text

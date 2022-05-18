@@ -13,20 +13,76 @@ import TopHeading from '../components/topHeading';
 
 const chartsdata = [
   {
-    name: 'Pie Chart',
-    image: require('../assets/chartimages/kindpng_1708478.png'),
+    name:"Venn Chart",
+    image:require('../assets/chartimages/1.png')
   },
   {
-    name: 'Bar Chart',
-    image: require('../assets/chartimages/kindpng_2461295.png'),
+    name:"Sankey Chart",
+    image:require('../assets/chartimages/2.png')
   },
   {
-    name: 'Line Chart',
-    image: require('../assets/chartimages/kindpng_2853573.png'),
+    name:"Pie Chart",
+    image:require('../assets/chartimages/3.png')
   },
   {
-    name: 'Pyramid Chart',
-    image: require('../assets/chartimages/faarigh.png'),
+    name:"Waterfall Chart",
+    image:require('../assets/chartimages/4.png')
+  },
+  {
+    name:"Waffle Chart",
+    image:require('../assets/chartimages/5.png')
+  },
+  {
+    name:"Stacked Bar Chart",
+    image:require('../assets/chartimages/6.png')
+  },
+  {
+    name:"Gannt Chart",
+    image:require('../assets/chartimages/7.png')
+  },
+  {
+    name:"Dot Chart",
+    image:require('../assets/chartimages/8.png')
+  },
+  {
+    name:"Area Chart",
+    image:require('../assets/chartimages/9.png')
+  },
+  {
+    name:"Unit Chart",
+    image:require('../assets/chartimages/10.png')
+  },
+  {
+    name:"Slope Chart",
+    image:require('../assets/chartimages/11.png')
+  },
+  {
+    name:"Pyramid Chart",
+    image:require('../assets/chartimages/12.png')
+  },
+  {
+    name:"Scatter Chart",
+    image:require('../assets/chartimages/13.png')
+  },
+  {
+    name:"Histogram",
+    image:require('../assets/chartimages/14.png')
+  },
+  {
+    name:"Bar Chart",
+    image:require('../assets/chartimages/15.png')
+  },
+  {
+    name:"Word Cloud",
+    image:require('../assets/chartimages/16.png')
+  },
+  {
+    name:"Box Plot",
+    image:require('../assets/chartimages/17.png')
+  },
+  {
+    name:"Violin Chart",
+    image:require('../assets/chartimages/18.png')
   },
 ];
 
@@ -52,7 +108,7 @@ const PracticeCharts= ({navigation}) => {
                   name:item.name,
                     image:item.image
               })} style={{alignItems:'center'}}>
-              <Image alt="Chart Images" source={item.image} w={125} h={125} />
+              <Image key={item.image} resizeMode='contain' alt="Chart Images" source={item.image} w={150} h={150} />
               <Text mt={2}  fontFamily={fonts.regularFont} fontSize={fontSizes.large}>{item.name}</Text>
               </TouchableOpacity>
 

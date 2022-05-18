@@ -44,7 +44,7 @@ const QuizStartScreen = ({navigation}) => {
              <TextInput
               onChangeText={(value) => setname(value)}
               placeholder='Enter your name'
-              style={{ backgroundColor: 'white',width:"90%",fontFamily:fonts.regularFont,fontSize:fontSizes.xxlarge, borderRadius: 8, padding: 18, marginVertical: 8,borderWidth:2,borderColor:"#dadada" }}
+              style={{ backgroundColor: 'white',color: '#000',width:"90%",fontFamily:fonts.regularFont,fontSize:fontSizes.xxlarge, borderRadius: 8, padding: 18, marginVertical: 8,borderWidth:2,borderColor:"#dadada" }}
              />
              <TouchableOpacity onPress={startQuiz} style={{ backgroundColor: colors.iconcolor,width:"90%",borderRadius: 8, padding: 18, marginTop: 80,}}>
                  <Text color="#fff" textAlign="center" fontSize={fontSizes.xxxlarge} fontFamily={fonts.mediumFont}>Start Timer</Text>
