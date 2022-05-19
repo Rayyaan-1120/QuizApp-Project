@@ -42,6 +42,7 @@ const QuizStartScreen = ({navigation}) => {
          </View>
          <View alignItems="center" mt={20}>
              <TextInput
+              placeholderTextColor={'#dcdcdc'}
               onChangeText={(value) => setname(value)}
               placeholder='Enter your name'
               style={{ backgroundColor: 'white',color: '#000',width:"90%",fontFamily:fonts.regularFont,fontSize:fontSizes.xxlarge, borderRadius: 8, padding: 18, marginVertical: 8,borderWidth:2,borderColor:"#dadada" }}

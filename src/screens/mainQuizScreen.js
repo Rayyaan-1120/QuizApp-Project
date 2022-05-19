@@ -22,30 +22,13 @@ import {OptionComponentone,OptionComponenttwo,OptionComponentthree,OptionCompone
 
 const MainQuizScreen = ({navigation}) => {
 
-    const touchableref = useRef()
-
-    useEffect(() => {
-      if(touchableref.current){
-          touchableref.current.measure((x, y, width, height, pageX, pageY) => {
-              console.log(x,'x')
-                console.log(y,'y')
-                console.log(width,'width')
-                console.log(height,'height')
-                console.log(pageX,'pageX')
-                console.log(pageY,'pageY')
-
-          })
-      }
-    },[])
-
-   
 
     const [currentQuestion,setcurrentQuestion] = useState(0)
     const [selectedQuestion,setselectedQuestion] = useState('')
     const {width, height} = Dimensions.get('window');
 
     const {userData,setuserData, dragscore,
-        setdragscore,draggableoptiononecolor,draggableoptiontwocolor,draggableoptionthreecolor,draggableoptionfourcolor} = useScore()
+        setdragscore,draggableoptiononecolor,setdraggableoptiononecolor,draggableoptiontwocolor,setdraggableoptiontwocolor,draggableoptionthreecolor,setdraggableoptionthreecolor,draggableoptionfourcolor,setdraggableoptionfourcolor} = useScore()
 
 
     const nextquestion  = () => {
@@ -55,9 +38,13 @@ const MainQuizScreen = ({navigation}) => {
                 return
              }
 
+             console.log(dragscore,'dragscore')
+
              setuserData({...userData,
                 score:userData.score + dragscore,
                 correctAnswers:userData.correctAnswers + 1})
+
+                alert(`You Have dropped ${dragscore / 250} charts in right place`)
 
 
              if(currentQuestion === quizQuestions.length - 1){
@@ -71,6 +58,8 @@ const MainQuizScreen = ({navigation}) => {
            
 
         }else{
+            console.log(userData.score,'userData.score')
+
             if(selectedQuestion.length === 0) {
                 return alert('Please Select the Answer')
             }
@@ -93,7 +82,25 @@ const MainQuizScreen = ({navigation}) => {
         }
         
     }
-    const prevquestion  = () => setcurrentQuestion((prevstate) => prevstate === 0 ? 0 :  prevstate - 1 )
+    const prevquestion  = () => {
+        if(quizQuestions[currentQuestion]?.draggable){
+            setdraggableoptiononecolor(false)
+            setdraggableoptiontwocolor(false)
+            setdraggableoptionthreecolor(false)
+            setdraggableoptionfourcolor(false)
+            console.log(dragscore,'dragscore')
+            // setuserData({...userData,score:userData.score - 1000})
+            setdragscore(0)
+            setuserData({...userData,score:userData.score - 1000})
+        }else{
+            console.log(userData.score,'userData.score')
+            setselectedQuestion('')
+            setuserData({...userData,score:userData.score - 1000})
+        }
+        setcurrentQuestion((prevstate) => prevstate === 0 ? 0 :  prevstate - 1 )
+    }
+
+    console.log(userData.score,'userData.score');
 
     // useEffect(() => {
     //     function shuffle(array) {
@@ -125,7 +132,7 @@ const MainQuizScreen = ({navigation}) => {
       let timerId;
   
       if (runTimer) {
-        setCountDown(60 * 60);
+        setCountDown(60 * 5);
         timerId = setInterval(() => {
           setCountDown((countDown) => countDown - 1);
         }, 1000);
@@ -164,7 +171,7 @@ const MainQuizScreen = ({navigation}) => {
 
           {quizQuestions[currentQuestion]?.draggable ? (
               <View w={width / 1.15} mx="auto" alignItems="center" justifyContent="center">
-              <Text my={3} fontFamily={fonts.mediumFont} color={colors.text} fontSize={fontSizes.xxxxxlarge}>{quizQuestions[currentQuestion]?.question}</Text>
+              <Text my={3} textAlign="center" fontFamily={fonts.mediumFont} color={colors.text} fontSize={fontSizes.xxxxxlarge}>{quizQuestions[currentQuestion]?.question}</Text>
               <View flexDir={'row'} alignItems="center" flexWrap={'wrap'} justifyContent="space-between">
                   <Draggable correctAnswer={quizQuestions[currentQuestion]?.correctAnswer} option={quizQuestions[currentQuestion]?.options.a} image={quizQuestions[currentQuestion]?.imageone}/>
                   <Draggable correctAnswer={quizQuestions[currentQuestion]?.correctAnswer} option={quizQuestions[currentQuestion]?.options.b} image={quizQuestions[currentQuestion]?.imagetwo}/>
@@ -176,7 +183,7 @@ const MainQuizScreen = ({navigation}) => {
           ) : (
 
               <View w={width / 1.15} mx="auto" alignItems="center" justifyContent="center">
-                  <Text my={3} fontFamily={fonts.mediumFont} color={colors.text} fontSize={fontSizes.xxxxxlarge}>{quizQuestions[currentQuestion]?.question}</Text>
+                  <Text my={3} textAlign="center" fontFamily={fonts.mediumFont} color={colors.text} fontSize={fontSizes.xxlarge}>{quizQuestions[currentQuestion]?.question}</Text>
                   <Image key={quizQuestions[currentQuestion]?.image} mt={5} resizeMode="contain" alt="Chart Image" source={quizQuestions[currentQuestion]?.image} width={250} height={180}/>
               </View>
           )}
@@ -207,8 +214,6 @@ const MainQuizScreen = ({navigation}) => {
                     </View>
                     </TouchableOpacity>
       
-                    // <Divider opacity={0.2} thickness={2} bg={colors.text} mt={2}/>
-                    // </>
                  )
              })}
               </>
@@ -220,75 +225,6 @@ const MainQuizScreen = ({navigation}) => {
              <OptionComponentthree num={3} value={quizQuestions[currentQuestion]?.options.c} conditionone={selectedQuestion !== quizQuestions[currentQuestion]?.options.c} conditiontwo={selectedQuestion === quizQuestions[currentQuestion]?.options.c}/>
              <OptionComponentfour num={4} value={quizQuestions[currentQuestion]?.options.d} conditionone={selectedQuestion !== quizQuestions[currentQuestion]?.options.d} conditiontwo={selectedQuestion === quizQuestions[currentQuestion]?.options.d}/>
               
-                    {/* <TouchableOpacity
-                    onLayout={(event) => {
-                        setdnd({...dnd,dropzoneone:event.nativeEvent.layout}) ;
-                    }}
-                      style={{alignSelf:'flex-start'}} >
-
-                    <View w={'100%'} my={1.5} flexDir={'row'} alignItems="center">
-                        
-                        <Text ml={4} fontFamily={fonts.regularFont} color={colors.text} fontSize={fontSizes.xxxlarge}>{quizQuestions[currentQuestion]?.options.a}</Text>
-                        <RenderIf isTrue={selectedQuestion !== quizQuestions[currentQuestion]?.options.a}>
-                        <View w={6} h={6} borderWidth={2} borderColor={colors.iconcolor} borderRadius={'full'}/>
-                        </RenderIf>
-                        <RenderIf isTrue={selectedQuestion === quizQuestions[currentQuestion]?.options.a}>
-                        <View w={6} h={6} bg={colors.iconcolor} borderRadius={'full'}/>
-                        </RenderIf>
-                    </View>
-                    </TouchableOpacity> */}
-                    {/* <TouchableOpacity
-                    ref={touchableref}
-                    
-                      style={{alignSelf:'flex-start'}} >
-
-                    <View w={'100%'} my={1.5} flexDir={'row'} alignItems="center">
-                        
-                        <Text ml={4} fontFamily={fonts.regularFont} color={colors.text} fontSize={fontSizes.xxxlarge}>{quizQuestions[currentQuestion]?.options.b}</Text>
-                        <RenderIf isTrue={selectedQuestion !== quizQuestions[currentQuestion]?.options.b}>
-                        <View w={6} h={6} borderWidth={2} borderColor={colors.iconcolor} borderRadius={'full'}/>
-                        </RenderIf>
-                        <RenderIf isTrue={selectedQuestion === quizQuestions[currentQuestion]?.options.b}>
-                        <View w={6} h={6} bg={colors.iconcolor} borderRadius={'full'}/>
-                        </RenderIf>
-                    </View>
-                    </TouchableOpacity> */}
-                    {/* <TouchableOpacity
-                     onLayout={(event) => {
-                        setdnd({...dnd,dropzonethree:event.nativeEvent.layout}) ;
-                    }}
-                      style={{alignSelf:'flex-start'}} >
-
-                    <View w={'100%'} my={1.5} flexDir={'row'} alignItems="center">
-                        
-                        <Text ml={4} fontFamily={fonts.regularFont} color={colors.text} fontSize={fontSizes.xxxlarge}>{quizQuestions[currentQuestion]?.options.c}</Text>
-                        <RenderIf isTrue={selectedQuestion !== quizQuestions[currentQuestion]?.options.c}>
-                        <View w={6} h={6} borderWidth={2} borderColor={colors.iconcolor} borderRadius={'full'}/>
-                        </RenderIf>
-                        <RenderIf isTrue={selectedQuestion === quizQuestions[currentQuestion]?.options.c}>
-                        <View w={6} h={6} bg={colors.iconcolor} borderRadius={'full'}/>
-                        </RenderIf>
-                    </View>
-                    </TouchableOpacity> */}
-                    {/* <TouchableOpacity
-                     onLayout={(event) => {
-                        setdnd({...dnd,dropzonefour:event.nativeEvent.layout}) ;
-                    }}
-                      style={{alignSelf:'flex-start'}} >
-
-                    <View w={'100%'} my={1.5} flexDir={'row'} alignItems="center">
-                        
-                        <Text ml={4} fontFamily={fonts.regularFont} color={colors.text} fontSize={fontSizes.xxxlarge}>{quizQuestions[currentQuestion]?.options.d}</Text>
-                        <RenderIf isTrue={selectedQuestion !== quizQuestions[currentQuestion]?.options.d}>
-                        <View w={6} h={6} borderWidth={2} borderColor={colors.iconcolor} borderRadius={'full'}/>
-                        </RenderIf>
-                        <RenderIf isTrue={selectedQuestion === quizQuestions[currentQuestion]?.options.d}>
-                        <View w={6} h={6} bg={colors.iconcolor} borderRadius={'full'}/>
-                        </RenderIf>
-                    </View>
-                    </TouchableOpacity> */}
-      
-                    
               
              </>
           )}
@@ -296,9 +232,9 @@ const MainQuizScreen = ({navigation}) => {
                
           </View>
            
-           <View mx="auto" my={5} width={width / 1.2} alignItems="center" justifyContent="space-between" flexDir="row">
+           <View mx="auto" my={5} width={width / 1.2} flexDir="row" justifyContent="space-between">
 
-            
+            {currentQuestion !== 0 && (
 
                <TouchableOpacity
                onPress={prevquestion}
@@ -308,11 +244,14 @@ const MainQuizScreen = ({navigation}) => {
                    padding:3,
                    alignItems:'center',
                    borderRadius:5,
+                alignSelf:"flex-start",
+
                    backgroundColor:colors.iconcolor,
                }}
                >
-                  <Text fontFamily={fonts.regularFont} color={colors.text} fontSize={fontSizes.xxlarge}>Prev</Text>
+                  <Text fontFamily={fonts.regularFont} color={'#fff'} fontSize={fontSizes.xxlarge}>Prev</Text>
                </TouchableOpacity>
+            )}
 
                <TouchableOpacity
                onPress={nextquestion}
@@ -321,12 +260,15 @@ const MainQuizScreen = ({navigation}) => {
                 width:100,
                 padding:3,
                 alignItems:'center',
+                alignSelf:"flex-end",
                 borderRadius:5,
                 backgroundColor:colors.iconcolor,
             }}
                >
-                  <Text fontFamily={fonts.regularFont} color={colors.text} fontSize={fontSizes.xxlarge}>Next</Text>
+                  <Text fontFamily={fonts.regularFont} color={'#fff'} fontSize={fontSizes.xxlarge}>Next</Text>
                </TouchableOpacity>
+
+
            </View>
 
        </ScrollView>

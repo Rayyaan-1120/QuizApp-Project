@@ -20,7 +20,7 @@ const QuizResultScreen = ({navigation,route}) => {
 
     const {timeFinished} = route.params
 
-    const {userData,setuserData,leaderboard,setleaderboard} = useScore()
+    const {userData,setuserData,leaderboard,setleaderboard,setdragscore,draggableoptiononecolor,setdraggableoptiononecolor,draggableoptiontwocolor,setdraggableoptiontwocolor,draggableoptionthreecolor,setdraggableoptionthreecolor,draggableoptionfourcolor,setdraggableoptionfourcolor} = useScore()
 
     useEffect(() => {
        const backaction = () => {
@@ -42,6 +42,11 @@ const QuizResultScreen = ({navigation,route}) => {
     },[])
 
     useEffect(() => {
+        setdraggableoptiononecolor(false)
+            setdraggableoptiontwocolor(false)
+            setdraggableoptionthreecolor(false)
+            setdraggableoptionfourcolor(false)
+            setdragscore(0)
       setleaderboard([...leaderboard,{userName:userData.userName,score:userData.score}])
       AsyncStorage.setItem('leaderboard',JSON.stringify(leaderboard)).then(() => console.log('leaderboard saved')).catch(err => alert(err))
     },[])

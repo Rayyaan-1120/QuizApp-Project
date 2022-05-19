@@ -16,7 +16,7 @@ const OptionComponentone = ({conditionone, conditiontwo, value, num}) => {
     },[])
 
   return (
-    <TouchableOpacity
+    <View
       onLayout={() => {
         myRef.current.measure((x, y, width, height, pageX, pageY) => {
           console.log(x, 'x');
@@ -46,7 +46,9 @@ const OptionComponentone = ({conditionone, conditiontwo, value, num}) => {
         borderWidth: 0.8,
         borderRadius: 4,
         marginVertical:5
-      }}>
+      }}
+      collapsable={false}
+      >
       <View
         w={'100%'}
         my={1.5}
@@ -73,7 +75,7 @@ const OptionComponentone = ({conditionone, conditiontwo, value, num}) => {
           <View w={6} h={6} bg={colors.iconcolor} borderRadius={'full'} />
         </RenderIf>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
 const OptionComponenttwo = ({conditionone, conditiontwo, value, num}) => {
@@ -88,7 +90,7 @@ const OptionComponenttwo = ({conditionone, conditiontwo, value, num}) => {
  
 
   return (
-    <TouchableOpacity
+    <View
       onLayout={() => {
         myRef.current.measure((x, y, width, height, pageX, pageY) => {
           console.log(x, 'x');
@@ -106,6 +108,7 @@ const OptionComponenttwo = ({conditionone, conditiontwo, value, num}) => {
             pageX !== undefined &&
             pageY !== undefined
           ) {
+             console.log('I am runned')
             setdropzonetwo({x, y, width, height, pageX, pageY});
           }
         });
@@ -118,8 +121,11 @@ const OptionComponenttwo = ({conditionone, conditiontwo, value, num}) => {
         borderWidth: 0.8,
         borderRadius: 4,
         marginVertical:5
-
-      }}>
+  
+      }}
+      collapsable={false}
+      
+      >
       <View
         w={'100%'}
         my={1.5}
@@ -146,7 +152,7 @@ const OptionComponenttwo = ({conditionone, conditiontwo, value, num}) => {
           <View w={6} h={6} bg={colors.iconcolor} borderRadius={'full'} />
         </RenderIf>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
 const OptionComponentthree = ({conditionone, conditiontwo, value, num}) => {
@@ -160,7 +166,7 @@ const OptionComponentthree = ({conditionone, conditiontwo, value, num}) => {
      },[])
 
   return (
-    <TouchableOpacity
+    <View
       onLayout={() => {
         myRef.current.measure((x, y, width, height, pageX, pageY) => {
           console.log(x, 'x');
@@ -178,6 +184,8 @@ const OptionComponentthree = ({conditionone, conditiontwo, value, num}) => {
             pageX !== undefined &&
             pageY !== undefined
           ) {
+             console.log('I am runned')
+
             setdropzonethree({x, y, width, height, pageX, pageY});
           }
         });
@@ -191,7 +199,10 @@ const OptionComponentthree = ({conditionone, conditiontwo, value, num}) => {
         borderRadius: 4,
         marginVertical:5
 
-      }}>
+      }}
+      collapsable={false}
+      
+      >
       <View
         w={'100%'}
         my={1.5}
@@ -218,7 +229,7 @@ const OptionComponentthree = ({conditionone, conditiontwo, value, num}) => {
           <View w={6} h={6} bg={colors.iconcolor} borderRadius={'full'} />
         </RenderIf>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
 const OptionComponentfour = ({conditionone, conditiontwo, value, num}) => {
@@ -232,7 +243,7 @@ const OptionComponentfour = ({conditionone, conditiontwo, value, num}) => {
      },[])
 
   return (
-    <TouchableOpacity
+    <View
       onLayout={() => {
         myRef.current.measure((x, y, width, height, pageX, pageY) => {
           console.log(x, 'x');
@@ -249,6 +260,8 @@ const OptionComponentfour = ({conditionone, conditiontwo, value, num}) => {
             pageX !== undefined &&
             pageY !== undefined
           ) {
+            console.log('I am runned')
+            
             setdropzonefour({x, y, width, height, pageX, pageY});
           }
         });
@@ -262,7 +275,10 @@ const OptionComponentfour = ({conditionone, conditiontwo, value, num}) => {
         borderRadius: 4,
         marginVertical:5
 
-      }}>
+      }}
+      collapsable={false}
+      
+      >
       <View
         w={'100%'}
         my={1.5}
@@ -289,7 +305,7 @@ const OptionComponentfour = ({conditionone, conditiontwo, value, num}) => {
           <View w={6} h={6} bg={colors.iconcolor} borderRadius={'full'} />
         </RenderIf>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
 
