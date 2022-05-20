@@ -146,18 +146,14 @@ const Draggable = ({image,correctAnswer,option}) => {
 
     return(
         <>
-        {dnd.showdraggable ? (
             <Animated.View 
 
              {...panResponder.panHandlers}
              style={{width: '50%',zIndex:100, alignItems: 'center',transform: [{ translateX: pan.x }, { translateY: pan.y }]}} >
-             <Image alt="chart image" source={image} w={100} h={100}/>
+             <Image alt="chart image" key={image} source={image} w={100} h={100}/>
 
              </Animated.View>
 
-        ) : (
-            <Text>Hello dropped</Text>
-        )}
         </>
     )
 }

@@ -1,4 +1,4 @@
-import React,{useState,useEffect,useRef} from 'react';
+import React,{useState,useEffect,useLayoutEffect,useRef} from 'react';
 import {View, Text, Center, Divider, Image} from 'native-base';
 import {
   SafeAreaView,
@@ -15,12 +15,20 @@ import {colors, fontSizes, fonts} from '../config/theme';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import TopHeading from '../components/topHeading';
 import RenderIf from '../components/renderIf';
-import { quizQuestions } from '../assets/quizQuestions';
+import { quizQues,shuffle } from '../assets/quizQuestions';
 import { useScore } from '../config/scoreContext';
 import Draggable from '../components/draggable';
 import {OptionComponentone,OptionComponenttwo,OptionComponentthree,OptionComponentfour} from '../components/optionComponent';
 
 const MainQuizScreen = ({navigation}) => {
+
+    const [quizQuestions,setquizQuestions] = useState(quizQues);
+
+    useEffect(() => {
+        setquizQuestions(shuffle(quizQues));
+    },[])
+
+    console.log(quizQuestions,'quizQuestions');
 
 
     const [currentQuestion,setcurrentQuestion] = useState(0)
@@ -45,6 +53,12 @@ const MainQuizScreen = ({navigation}) => {
                 correctAnswers:userData.correctAnswers + 1})
 
                 alert(`You Have dropped ${dragscore / 250} charts in right place`)
+                
+                setdraggableoptiononecolor(false)
+            setdraggableoptiontwocolor(false)
+            setdraggableoptionthreecolor(false)
+            setdraggableoptionfourcolor(false)
+            setdragscore(0)
 
 
              if(currentQuestion === quizQuestions.length - 1){
@@ -52,7 +66,7 @@ const MainQuizScreen = ({navigation}) => {
                     timeFinished:false,
                 })
              }else{
-                setcurrentQuestion((prevstate) => prevstate === quizQuestions.length - 1 ? quizQuestions.length - 1 :  prevstate + 1 )
+                setcurrentQuestion((prevstate) => prevstate === quizQuestions.length - 1 ?  quizQuestions.length - 1 :  prevstate + 1 )
             }
 
            
@@ -102,27 +116,6 @@ const MainQuizScreen = ({navigation}) => {
 
     console.log(userData.score,'userData.score');
 
-    // useEffect(() => {
-    //     function shuffle(array) {
-    //         let currentIndex = array.length,  randomIndex;
-          
-    //         // While there remain elements to shuffle.
-    //         while (currentIndex != 0) {
-          
-    //           // Pick a remaining element.
-    //           randomIndex = Math.floor(Math.random() * currentIndex);
-    //           currentIndex--;
-          
-    //           // And swap it with the current element.
-    //           [array[currentIndex], array[randomIndex]] = [
-    //             array[randomIndex], array[currentIndex]];
-    //         }
-          
-    //         return array;
-    //       }
-
-    //       shuffle(quizQuestions)
-    // },[])
     
 
     const [countDown, setCountDown] = React.useState(0);
@@ -158,7 +151,7 @@ const MainQuizScreen = ({navigation}) => {
 
     return(
        <SafeAreaView style={{flex:1,backgroundColor: colors.background}}>
-          <ScrollView>
+          <ScrollView bounces={false}>
 
           <View w={width / 1.1} mx="auto">
               <TopHeading text={`Question ${currentQuestion + 1}`}/>
@@ -169,30 +162,30 @@ const MainQuizScreen = ({navigation}) => {
           </View>
 
 
-          {quizQuestions[currentQuestion]?.draggable ? (
+          {quizQuestions && quizQuestions[currentQuestion]?.draggable ? (
               <View w={width / 1.15} mx="auto" alignItems="center" justifyContent="center">
-              <Text my={3} textAlign="center" fontFamily={fonts.mediumFont} color={colors.text} fontSize={fontSizes.xxxxxlarge}>{quizQuestions[currentQuestion]?.question}</Text>
+              <Text my={3} textAlign="center" fontFamily={fonts.mediumFont} color={colors.text} fontSize={fontSizes.xxxxxlarge}>{quizQuestions && quizQuestions[currentQuestion]?.question}</Text>
               <View flexDir={'row'} alignItems="center" flexWrap={'wrap'} justifyContent="space-between">
-                  <Draggable correctAnswer={quizQuestions[currentQuestion]?.correctAnswer} option={quizQuestions[currentQuestion]?.options.a} image={quizQuestions[currentQuestion]?.imageone}/>
-                  <Draggable correctAnswer={quizQuestions[currentQuestion]?.correctAnswer} option={quizQuestions[currentQuestion]?.options.b} image={quizQuestions[currentQuestion]?.imagetwo}/>
-                  <Draggable correctAnswer={quizQuestions[currentQuestion]?.correctAnswer} option={quizQuestions[currentQuestion]?.options.c} image={quizQuestions[currentQuestion]?.imagethree}/>
-                  <Draggable correctAnswer={quizQuestions[currentQuestion]?.correctAnswer} option={quizQuestions[currentQuestion]?.options.d} image={quizQuestions[currentQuestion]?.imagefour}/>
+                  <Draggable correctAnswer={quizQuestions && quizQuestions[currentQuestion]?.correctAnswer} option={quizQuestions && quizQuestions[currentQuestion]?.options.a} image={quizQuestions && quizQuestions[currentQuestion]?.imageone}/>
+                  <Draggable correctAnswer={quizQuestions && quizQuestions[currentQuestion]?.correctAnswer} option={quizQuestions && quizQuestions[currentQuestion]?.options.b} image={quizQuestions && quizQuestions[currentQuestion]?.imagetwo}/>
+                  <Draggable correctAnswer={quizQuestions && quizQuestions[currentQuestion]?.correctAnswer} option={quizQuestions && quizQuestions[currentQuestion]?.options.c} image={quizQuestions && quizQuestions[currentQuestion]?.imagethree}/>
+                  <Draggable correctAnswer={quizQuestions && quizQuestions[currentQuestion]?.correctAnswer} option={quizQuestions && quizQuestions[currentQuestion]?.options.d} image={quizQuestions && quizQuestions[currentQuestion]?.imagefour}/>
                   
               </View>
           </View>
           ) : (
 
               <View w={width / 1.15} mx="auto" alignItems="center" justifyContent="center">
-                  <Text my={3} textAlign="center" fontFamily={fonts.mediumFont} color={colors.text} fontSize={fontSizes.xxlarge}>{quizQuestions[currentQuestion]?.question}</Text>
-                  <Image key={quizQuestions[currentQuestion]?.image} mt={5} resizeMode="contain" alt="Chart Image" source={quizQuestions[currentQuestion]?.image} width={250} height={180}/>
+                  <Text my={3} textAlign="center" fontFamily={fonts.mediumFont} color={colors.text} fontSize={fontSizes.xxlarge}>{quizQuestions && quizQuestions[currentQuestion]?.question}</Text>
+                  <Image key={quizQuestions && quizQuestions[currentQuestion]?.image} mt={5} resizeMode="contain" alt="Chart Image" source={quizQuestions && quizQuestions[currentQuestion]?.image} width={250} height={180}/>
               </View>
           )}
           
           <View mt={4} mx="auto" alignItems="center" width={width / 1.2}> 
 
-          {!quizQuestions[currentQuestion]?.draggable ? (
+          {quizQuestions && !(quizQuestions[currentQuestion]?.draggable) ? (
               <>
-               {Object.entries(quizQuestions[currentQuestion]?.options).map(([key,value],index) => {
+              {Object.entries(quizQuestions[currentQuestion]?.options).map(([key,value],index) => {
                  return(
                     //  <>
                     <TouchableOpacity
@@ -216,14 +209,16 @@ const MainQuizScreen = ({navigation}) => {
       
                  )
              })}
+              
+               
               </>
           ) : (
              <>
 
-             <OptionComponentone num={1} value={quizQuestions[currentQuestion]?.options.a} conditionone={selectedQuestion !== quizQuestions[currentQuestion]?.options.a} conditiontwo={selectedQuestion === quizQuestions[currentQuestion]?.options.a}/>
-             <OptionComponenttwo num={2} value={quizQuestions[currentQuestion]?.options.b} conditionone={selectedQuestion !== quizQuestions[currentQuestion]?.options.b} conditiontwo={selectedQuestion === quizQuestions[currentQuestion]?.options.b}/>
-             <OptionComponentthree num={3} value={quizQuestions[currentQuestion]?.options.c} conditionone={selectedQuestion !== quizQuestions[currentQuestion]?.options.c} conditiontwo={selectedQuestion === quizQuestions[currentQuestion]?.options.c}/>
-             <OptionComponentfour num={4} value={quizQuestions[currentQuestion]?.options.d} conditionone={selectedQuestion !== quizQuestions[currentQuestion]?.options.d} conditiontwo={selectedQuestion === quizQuestions[currentQuestion]?.options.d}/>
+<OptionComponentone num={1} value={quizQuestions && quizQuestions[currentQuestion]?.options.a} conditionone={selectedQuestion !== quizQuestions && quizQuestions[currentQuestion]?.options.a} conditiontwo={selectedQuestion === quizQuestions && quizQuestions[currentQuestion]?.options.a}/>
+             <OptionComponenttwo num={2} value={quizQuestions && quizQuestions[currentQuestion]?.options.b} conditionone={selectedQuestion !== quizQuestions && quizQuestions[currentQuestion]?.options.b} conditiontwo={selectedQuestion === quizQuestions && quizQuestions[currentQuestion]?.options.b}/>
+             <OptionComponentthree num={3} value={quizQuestions && quizQuestions[currentQuestion]?.options.c} conditionone={selectedQuestion !== quizQuestions && quizQuestions[currentQuestion]?.options.c} conditiontwo={selectedQuestion === quizQuestions && quizQuestions[currentQuestion]?.options.c}/>
+             <OptionComponentfour num={4} value={quizQuestions && quizQuestions[currentQuestion]?.options.d} conditionone={selectedQuestion !== quizQuestions && quizQuestions[currentQuestion]?.options.d} conditiontwo={selectedQuestion === quizQuestions[currentQuestion]?.options.d}/>
               
               
              </>

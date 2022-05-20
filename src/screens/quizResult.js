@@ -55,11 +55,11 @@ const QuizResultScreen = ({navigation,route}) => {
       <SafeAreaView style={{flex:1,backgroundColor: colors.background,alignItems:"center",justifyContent: "center"}}>
          <View w={'80%'} alignItems="center">
 
-             <Text fontSize={60}>{userData?.score > 2000 ? "😍" : userData?.score === 2000 ? '😚' : userData?.score === 1000 ? '🙂' : userData?.score === 0 ? '🤢' : ''}</Text>
+             <Text fontSize={60}>{userData?.score > 2000 ? "😍" : userData?.score === 2000 ? '😚' : userData?.score === 1000 ? '🙂' : userData?.score === 0 ? '🤢' : userData?.score < 0 ? '🤢': ''}</Text>
              <RenderIf isTrue={timeFinished}>
              <Text textAlign="center" my={3} fontSize={fontSizes.xxxlarge} fontFamily={fonts.mediumFont}>Time Over</Text>
              </RenderIf>
-             <Text textAlign="center" mt={3} fontSize={fontSizes.xxxlarge} fontFamily={fonts.mediumFont}>{userData?.userName}, You Have Scored {userData.score} Points</Text>
+             <Text textAlign="center" mt={3} fontSize={fontSizes.xxxlarge} fontFamily={fonts.mediumFont}>{userData?.userName}, You Have Scored {userData.score > 0 ? userData.score : 0} Points</Text>
              <TouchableOpacity
              onPress={() =>{
                 AsyncStorage.setItem('leaderboard',JSON.stringify(leaderboard)).then(() => console.log('leaderboard saved')).catch(err => alert(err))
