@@ -80,7 +80,7 @@ const SinglePracticeChart = ({navigation,route}) => {
 
   const extradata12 = [
     {name:"Pyramid Chart"},
-    {img:require('../assets/chartimages/12.png')},
+    {img:require('../assets/chartimages/pyramid.jpeg')},
   ]
 
 

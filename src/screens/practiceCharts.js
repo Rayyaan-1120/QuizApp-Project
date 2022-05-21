@@ -58,7 +58,7 @@ const chartsdata = [
   },
   {
     name:"Pyramid Chart",
-    image:require('../assets/chartimages/12.png')
+    image:require('../assets/chartimages/pyramid.jpeg')
   },
   {
     name:"Scatter Chart",

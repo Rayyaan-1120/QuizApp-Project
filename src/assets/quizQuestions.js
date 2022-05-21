@@ -59,9 +59,9 @@ export const quizQues = [
 
       options:{
           a:"Waterfall Chart",
-          b:"Pie Chart",
+          b:"Waffle Chart",
           c:"Stacked Bar Chart",
-          d:"Waffle Chart"
+          d:"Pie Chart"
       }
     },
     {
@@ -77,7 +77,7 @@ export const quizQues = [
     {
       question:"Which Chart is that?",
       correctAnswer:"Grannt Chart",
-      image:require('./chartimages/13.png'),
+      image:require('./chartimages/7.png'),
       options:{
           a:"Grannt Chart",
           b:"Area Chart",
@@ -87,7 +87,7 @@ export const quizQues = [
     {
       question:"Which Chart is that?",
       correctAnswer:"Histogram",
-      image:require('./chartimages/13.png'),
+      image:require('./chartimages/14.png'),
       options:{
           a:"Violin Chart",
           b:"Bar Chart",
