@@ -28,8 +28,7 @@ const MainQuizScreen = ({navigation}) => {
         setquizQuestions(shuffle(quizQues));
     },[])
 
-    console.log(quizQuestions,'quizQuestions');
-
+    
 
     const [currentQuestion,setcurrentQuestion] = useState(0)
     const [selectedQuestion,setselectedQuestion] = useState('')
@@ -108,7 +107,7 @@ const MainQuizScreen = ({navigation}) => {
             setuserData({...userData,score:userData.score - 1000})
         }else{
             console.log(userData.score,'userData.score')
-            setselectedQuestion('')
+            // setselectedQuestion('')
             setuserData({...userData,score:userData.score - 1000})
         }
         setcurrentQuestion((prevstate) => prevstate === 0 ? 0 :  prevstate - 1 )
@@ -149,6 +148,7 @@ const MainQuizScreen = ({navigation}) => {
     const seconds = String(countDown % 60).padStart(2, 0);
     const minutes = String(Math.floor(countDown / 60)).padStart(2, 0);
 
+
     return(
        <SafeAreaView style={{flex:1,backgroundColor: colors.background}}>
           <ScrollView bounces={false}>
@@ -158,6 +158,12 @@ const MainQuizScreen = ({navigation}) => {
               <View flexDir="row" alignItems={'center'} justifyContent="center" mt={3}>
                   <MaterialCommunityIcons name="timer" size={32} color={colors.iconcolor}/>
                   <Text fontFamily={fonts.regularFont} color={colors.text} fontSize={fontSizes.xxxlarge} ml={2}>{minutes}:{seconds}</Text>
+              </View>
+          </View>
+
+          <View alignItems="center" alignSelf={'flex-end'} w={width} px={4}>
+              <View borderRadius={8} alignItems="center" alignSelf="flex-end" w={122} borderColor={colors.iconcolor} borderWidth={1.8} p={2}>
+                <Text fontFamily={fonts.regularFont} color={colors.text} fontSize={fontSizes.large}>{currentQuestion + 1} / {quizQuestions?.length}</Text>
               </View>
           </View>
 
@@ -177,11 +183,11 @@ const MainQuizScreen = ({navigation}) => {
 
               <View w={width / 1.15} mx="auto" alignItems="center" justifyContent="center">
                   <Text my={3} textAlign="center" fontFamily={fonts.mediumFont} color={colors.text} fontSize={fontSizes.xxlarge}>{quizQuestions && quizQuestions[currentQuestion]?.question}</Text>
-                  <Image key={quizQuestions && quizQuestions[currentQuestion]?.image} mt={5} resizeMode="contain" alt="Chart Image" source={quizQuestions && quizQuestions[currentQuestion]?.image} width={250} height={180}/>
+                  <Image key={quizQuestions && quizQuestions[currentQuestion]?.image} mt={5} resizeMode="contain" alt="Chart Image" source={quizQuestions && quizQuestions[currentQuestion]?.image} width={quizQuestions && quizQuestions[currentQuestion]?.question == "Which Chart is that?" ? 250 : 190} height={quizQuestions && quizQuestions[currentQuestion]?.question == "Which Chart is that?" ? 180 : 120}/>
               </View>
           )}
           
-          <View mt={4} mx="auto" alignItems="center" width={width / 1.2}> 
+          <View mt={4} mx="auto" alignItems="center" width={width / 1.1}> 
 
           {quizQuestions && !(quizQuestions[currentQuestion]?.draggable) ? (
               <>
@@ -190,7 +196,9 @@ const MainQuizScreen = ({navigation}) => {
                     //  <>
                     <TouchableOpacity
                     
-                    key={index} onPress={() => setselectedQuestion(value)} style={{alignSelf:'flex-start',width: '100%',
+                    key={index} onPress={() => {
+                      setselectedQuestion(value)
+                    }} style={{alignSelf:'flex-start',width: '100%',
                     padding: 8,
                     borderWidth: 0.8,
                     borderRadius: 4,
@@ -203,7 +211,7 @@ const MainQuizScreen = ({navigation}) => {
                         <RenderIf isTrue={selectedQuestion === value}>
                         <View w={6} h={6} bg={colors.iconcolor} borderRadius={'full'}/>
                         </RenderIf>
-                        <Text ml={4} fontFamily={fonts.regularFont} color={colors.text} fontSize={fontSizes.xxxlarge}>{value}</Text>
+                        <Text ml={4} w={'80%'} fontFamily={fonts.regularFont} color={colors.text} fontSize={fontSizes.large}>{value}</Text>
                     </View>
                     </TouchableOpacity>
       

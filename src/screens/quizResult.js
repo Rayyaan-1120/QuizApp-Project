@@ -59,7 +59,7 @@ const QuizResultScreen = ({navigation,route}) => {
              <RenderIf isTrue={timeFinished}>
              <Text textAlign="center" my={3} fontSize={fontSizes.xxxlarge} fontFamily={fonts.mediumFont}>Time Over</Text>
              </RenderIf>
-             <Text textAlign="center" mt={3} fontSize={fontSizes.xxxlarge} fontFamily={fonts.mediumFont}>{userData?.userName}, You Have Scored {userData.score > 0 ? userData.score : 0} Points</Text>
+             <Text textAlign="center" mt={3} fontSize={fontSizes.xxxlarge} fontFamily={fonts.mediumFont}>Hey {userData?.userName} you answered to {Math.floor(userData?.score / 1000)} questions correct and scored {userData.score > 0 ? userData.score : 0} points</Text>
              <TouchableOpacity
              onPress={() =>{
                 AsyncStorage.setItem('leaderboard',JSON.stringify(leaderboard)).then(() => console.log('leaderboard saved')).catch(err => alert(err))

@@ -1,12 +1,13 @@
 export const quizQues = [
     {
-      question:"Which Chart is that?",
-      correctAnswer:"Venn Chart",
-      image:require('./chartimages/1.png'),
+      question:"What represents boxplot, choose the correct answer:",
+      correctAnswer:"first quartile, median, third quartile",
+      image:require('./chartimages/questionmark.png'),
       options:{
-          a:"Venn Chart",
-          b:"Bar Chart",
-          c:"Pie Chart",
+          a:"minimum,median, geometric mean",
+          b:"average, median",
+          c:"geometric meen, standard deviation",
+          d:"first quartile, median, third quartile"
       }
     },
     
@@ -38,13 +39,14 @@ export const quizQues = [
       }
     },
     {
-      question:"Which Chart is that?",
-      correctAnswer:"Sankey Chart",
-      image:require('./chartimages/2.png'),
+      question:"Which of the charts shows the peaks in the data along with distribution of numerical data?",
+      correctAnswer:"violin chart",
+      image:require('./chartimages/questionmark.png'),
       options:{
-          a:"Pie Chart",
-          b:"Dot Chart",
-          c:"Sankey Chart",
+          a:"boxplot",
+          b:"area chart",
+          c:"violin Chart",
+          d:"histogram"
       }
     },
     {
@@ -65,33 +67,57 @@ export const quizQues = [
       }
     },
     {
-      question:"Which Chart is that?",
-      correctAnswer:"Scatter Chart",
-      image:require('./chartimages/13.png'),
+      question:"Which of the following relates to the histogram?",
+      correctAnswer:"condenses a data series into an easily interpreted visual",
+      image:require('./chartimages/questionmark.png'),
       options:{
-          a:"Unit Chart",
-          b:"Scatter Chart",
-          c:"Histogram",
+          a:"is similar to area chart",
+          b:"is a collection, or cluster, of words depicted in different sizes",
+          c:"condenses a data series into an easily interpreted visual",
+          d:"A chart used to communicate quantities of things"
       }
     },
     {
       question:"Which Chart is that?",
-      correctAnswer:"Grannt Chart",
+      correctAnswer:"Gantt Chart",
       image:require('./chartimages/7.png'),
       options:{
-          a:"Grannt Chart",
+          a:"Gantt Chart",
           b:"Area Chart",
           c:"Unit Chart",
       }
     },
     {
-      question:"Which Chart is that?",
-      correctAnswer:"Histogram",
-      image:require('./chartimages/14.png'),
+      question:"The definition “graphs pairs of numerical data, with one variable on each axis, to look for a relationship between them.” relates to:",
+      correctAnswer:"scatter chart",
+      image:require('./chartimages/questionmark.png'),
       options:{
-          a:"Violin Chart",
-          b:"Bar Chart",
-          c:"Histogram",
+          a:"scatter chart",
+          b:"slope chart",
+          c:"dot chart",
+          d:"gannt chart"
+      }
+    },
+    {
+      question:"Which chart shows the relationship between two points?",
+      correctAnswer:"slope chart",
+      image:require('./chartimages/questionmark.png'),
+      options:{
+          a:"boxplot",
+          b:"scatter chart",
+          c:"slope chart",
+          d:"dot chart"
+      }
+    },
+    {
+      question:"Which of the diagrams which uses parallel rectangular shapes to represent changes in the size, value, or rate of something?",
+      correctAnswer:"boxplot",
+      image:require('./chartimages/questionmark.png'),
+      options:{
+          a:"waffle chart",
+          b:"boxplot",
+          c:"bar chart",
+          d:"unit chart"
       }
     },
 ]

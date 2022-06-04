@@ -44,7 +44,7 @@ const LeaderBoard = ({navigation}) => {
 
   // console.log(,'ssss')
 
-  const data = leaderboard.sort((a,b) => b.score - a.score).slice(0,3)
+  const data = leaderboard.sort((a,b) => b.score - a.score)
 
   return (
 
@@ -55,6 +55,7 @@ const LeaderBoard = ({navigation}) => {
       <View
         position={'relative'}
         h={height / 1.7}
+        overflow="scroll"
         mt={32}
         width={width / 1.15}
         borderRadius={8}
@@ -71,9 +72,10 @@ const LeaderBoard = ({navigation}) => {
           <MaterialCommunityIcons name="trophy" size={65} color={'yellow'} />
         </Center>
 
-        <View w={'100%'} mt={3}>
+        {/* <View w={'100%'} mt={3} height={'100%'}> */}
           <FlatList
             data={data}
+            showsVerticalScrollIndicator={false}
             ListEmptyComponent={
               <View alignItems="center" justifyContent="center">
                 <Text
@@ -117,7 +119,7 @@ const LeaderBoard = ({navigation}) => {
             }}
           />
         </View>
-      </View>
+      {/* </View> */}
     </SafeAreaView>
   );
 };
